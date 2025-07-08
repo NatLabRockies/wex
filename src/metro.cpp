@@ -2119,9 +2119,9 @@ wxMetroDataViewTreeStoreContainerNode* wxMetroDataViewTreeStore::FindContainerNo
 // wxMetroDataViewTreeCtrl
 //-----------------------------------------------------------------------------
 
-wxIMPLEMENT_DYNAMIC_CLASS(wxMetroDataViewTreeCtrl, wxDataViewCtrl);
+wxIMPLEMENT_DYNAMIC_CLASS(wxMetroDataViewTreeCtrl, wxDataViewTreeCtrl);
 
-wxBEGIN_EVENT_TABLE(wxMetroDataViewTreeCtrl, wxDataViewCtrl)
+wxBEGIN_EVENT_TABLE(wxMetroDataViewTreeCtrl, wxDataViewTreeCtrl)
 EVT_DATAVIEW_ITEM_EXPANDED(-1, wxMetroDataViewTreeCtrl::OnExpanded)
 EVT_DATAVIEW_ITEM_COLLAPSED(-1, wxMetroDataViewTreeCtrl::OnCollapsed)
 EVT_SIZE(wxMetroDataViewTreeCtrl::OnSize)
@@ -2130,19 +2130,19 @@ wxEND_EVENT_TABLE()
 bool wxMetroDataViewTreeCtrl::Create(wxWindow* parent, wxWindowID id,
     const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator)
 {
-    if (!wxDataViewCtrl::Create(parent, id, pos, size, style, validator))
+    if (!wxDataViewTreeCtrl::Create(parent, id, pos, size, style, validator))
         return false;
 
     SetBackgroundStyle(wxBG_STYLE_CUSTOM);
     SetBackgroundColour(*wxWHITE);
     SetFont(wxMetroTheme::Font(wxMT_LIGHT, 15));
-
+    /*
     // create the standard model and a column in the tree
     wxMetroDataViewTreeStore* store = new wxMetroDataViewTreeStore;
     AssociateModel(store);
     store->DecRef();
 
-    AppendTextColumn
+    AppendIconTextColumn
     (
         wxString(),                 // no label (header is not shown anyhow)
         0,                          // the only model column
@@ -2151,10 +2151,12 @@ bool wxMetroDataViewTreeCtrl::Create(wxWindow* parent, wxWindowID id,
         wxALIGN_NOT,                //  and alignment
         0                           // not resizable
     );
-
+    */
     return true;
 }
 
+
+/*
 wxDataViewItem wxMetroDataViewTreeCtrl::AppendItem(const wxDataViewItem& parent,
     const wxString& text, wxClientData* data)
 {
@@ -2298,3 +2300,4 @@ void wxMetroDataViewTreeCtrl::OnSize(wxSizeEvent& event)
 #endif
     event.Skip(true);
 }
+*/

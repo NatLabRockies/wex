@@ -589,7 +589,7 @@ public:
 };
 
 
-class wxMetroDataViewTreeCtrl : public wxDataViewCtrl
+class wxMetroDataViewTreeCtrl : public wxDataViewTreeCtrl
 {
 public:
     wxMetroDataViewTreeCtrl() { }
@@ -609,7 +609,7 @@ public:
         const wxSize& size = wxDefaultSize,
         long style = wxDV_NO_HEADER,
         const wxValidator& validator = wxDefaultValidator);
-
+    /*
     wxMetroDataViewTreeStore* GetStore()
     {
         return (wxMetroDataViewTreeStore*)GetModel();
@@ -672,10 +672,11 @@ public:
     void OnExpanded(wxDataViewEvent& event);
     void OnCollapsed(wxDataViewEvent& event);
     void OnSize(wxSizeEvent& event);
-
+    */
 private:
     wxDECLARE_EVENT_TABLE();
     wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxMetroDataViewTreeCtrl);
+    
 };
 
 
