@@ -609,6 +609,12 @@ public:
         const wxSize& size = wxDefaultSize,
         long style = wxDV_NO_HEADER,
         const wxValidator& validator = wxDefaultValidator);
+
+    void OnItemStartEditing(wxDataViewEvent& event)
+    {
+        // prevent editing
+        event.Veto();
+	}
     /*
     wxMetroDataViewTreeStore* GetStore()
     {

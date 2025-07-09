@@ -2122,9 +2122,11 @@ wxMetroDataViewTreeStoreContainerNode* wxMetroDataViewTreeStore::FindContainerNo
 wxIMPLEMENT_DYNAMIC_CLASS(wxMetroDataViewTreeCtrl, wxDataViewTreeCtrl);
 
 wxBEGIN_EVENT_TABLE(wxMetroDataViewTreeCtrl, wxDataViewTreeCtrl)
-EVT_DATAVIEW_ITEM_EXPANDED(-1, wxMetroDataViewTreeCtrl::OnExpanded)
-EVT_DATAVIEW_ITEM_COLLAPSED(-1, wxMetroDataViewTreeCtrl::OnCollapsed)
+EVT_DATAVIEW_ITEM_EXPANDED(wxID_ANY, wxMetroDataViewTreeCtrl::OnExpanded)
+EVT_DATAVIEW_ITEM_COLLAPSED(wxID_ANY, wxMetroDataViewTreeCtrl::OnCollapsed)
 EVT_SIZE(wxMetroDataViewTreeCtrl::OnSize)
+EVT_DATAVIEW_ITEM_START_EDITING(wxID_ANY, wxMetroDataViewTreeCtrl::OnItemStartEditing)
+
 wxEND_EVENT_TABLE()
 
 bool wxMetroDataViewTreeCtrl::Create(wxWindow* parent, wxWindowID id,
