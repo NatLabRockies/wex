@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  WX_VERSION: '3.2.4'
+  WX_VERSION: '3.2.8'
   DEFAULT_BRANCH: develop
 
 
