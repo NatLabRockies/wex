@@ -5,8 +5,8 @@ on:
   pull_request:
 
 env:
-  WX_VERSION: '3.2.4'
-  DEFAULT_BRANCH: patch
+  WX_VERSION: '3.2.8.1'
+  DEFAULT_BRANCH: develop
 
 
 jobs:
