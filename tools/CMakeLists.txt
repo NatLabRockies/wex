@@ -90,6 +90,11 @@ else ()
         target_link_libraries(wexsandbox optimized ${LK_LIB})
     endif()
 endif ()
+
+include(${wxWidgets_USE_FILE})
+add_compile_options(${wxWidgets_CXX_FLAGS})
+add_definitions(-DLK_USE_WXWIDGETS )
+
 if (UNIX AND NOT APPLE)
     target_link_libraries(wexsandbox wex ${wxWidgets_LIBRARIES} ${FONTCONFIG_LIBRARY})
 else ()
