@@ -91,7 +91,9 @@ else ()
     endif()
 endif ()
 
-include(${wxWidgets_USE_FILE})
+if (wxWidgets_FOUND)
+    include(${wxWidgets_USE_FILE})
+endif ()
 add_compile_options(${wxWidgets_CXX_FLAGS})
 add_definitions(-DLK_USE_WXWIDGETS )
 
