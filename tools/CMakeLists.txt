@@ -19,11 +19,7 @@ set(DVIEW_SRC
 # CMake Targets
 #
 #####################################################################################################################
-if(MSVC)
-  set(CMAKE_CXX_STANDARD 20)
-else()
-  set(CMAKE_CXX_STANDARD 17)
-endif()
+set(CMAKE_CXX_STANDARD 20)
 
 # wexsandbox
 add_executable(wexsandbox ${WEX_SRC} ${wexsandbox_SRC})
