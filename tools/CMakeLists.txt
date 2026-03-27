@@ -39,6 +39,7 @@ if (APPLE)
     set(DVIEW_ICON ${CMAKE_CURRENT_SOURCE_DIR}/../build_resources/DView.icns)
     set_source_files_properties(${DVIEW_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
     set(APPS "\${CMAKE_INSTALL_PREFIX}/DView.app")
+    set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist.in)
 elseif (WIN32)
     set(DVIEW_ICON ${CMAKE_CURRENT_SOURCE_DIR}/../build_resources/dview.rc)
     set(APPS "\${CMAKE_INSTALL_PREFIX}/DView.exe")
@@ -49,6 +50,19 @@ add_executable(DView
         MACOSX_BUNDLE
         ${DVIEW_SRC}
         ${DVIEW_ICON})
+
+if (APPLE)
+    set_target_properties(DView PROPERTIES
+            MACOSX_BUNDLE_INFO_PLIST ${MACOSX_BUNDLE_INFO_PLIST}
+            XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_CURRENT_SOURCE_DIR}/DView.entitlements"
+    )
+    
+    # Custom post-build command to bundle dylibs and sign the app properly with entitlements
+    add_custom_command(TARGET DView POST_BUILD
+        COMMAND dylibbundler -od -b -x $<TARGET_FILE_DIR:DView>/DView -d $<TARGET_FILE_DIR:DView>/../Frameworks -p @executable_path/../Frameworks/
+        COMMAND codesign --force --deep --sign - --entitlements ${CMAKE_CURRENT_SOURCE_DIR}/DView.entitlements $<TARGET_FILE_DIR:DView>/../..
+    )
+endif()
 
 target_include_directories(DView SYSTEM PRIVATE ../include ../src/freetype/include ${LKDIR}/include ${CURL_DIR}/include)
 
