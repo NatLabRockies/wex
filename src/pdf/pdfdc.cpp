@@ -593,7 +593,7 @@ wxPdfDCImpl::DoDrawSpline(const wxPointList *points) {
     m_pdfDocument->CurveTo(bx1, by1, bx2, by2, bx3, by3);
 
 #if !wxUSE_STL
-    while ((node = node->GetNext()) != NULL)
+    while ((node = node->GetNext()) != nullptr)
 #else
     while ((node = node->GetNext()))
 #endif // !wxUSE_STL

@@ -175,8 +175,8 @@ public:
         wxMatrix<T> old(*this);
         Resize(nr, nc);
         Fill(val);
-        for (size_t r = 0; r < nr && r < old.nrows(); r++)
-            for (size_t c = 0; c < nc && c < old.ncols(); c++)
+        for (size_t r = 0; r < nr && r < old.Rows(); r++)
+            for (size_t c = 0; c < nc && c < old.Cols(); c++)
                 At(r, c) = old(r, c);
     }
 
