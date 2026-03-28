@@ -44,6 +44,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "wex/metro.h"
 #include "wex/utils.h"
 
+static wxColour GetContrastingTextColour(const wxColour& bg) {
+    double luminance = (0.299 * bg.Red() + 0.587 * bg.Green() + 0.114 * bg.Blue()) / 255.0;
+    return (luminance < 0.5) ? *wxWHITE : *wxBLACK;
+}
+
 #include "wex/icons/up_arrow_13.cpng"
 #include "wex/icons/down_arrow_13.cpng"
 #include "wex/icons/left_arrow_13.cpng"
@@ -635,13 +640,18 @@ void wxMetroTabList::OnPaint(wxPaintEvent &) {
             }
         }
 
-        wxColour text(*wxWHITE);
+        wxColour text;
         if (light) {
+            wxColour bg = *wxWHITE;
             text = ((int) i == m_selection
                     ? wxMetroTheme::Colour(wxMT_FOREGROUND)
                     : ((int) i == m_hoverIdx
                        ? wxMetroTheme::Colour(wxMT_SELECT)
                        : wxMetroTheme::Colour(wxMT_TEXT)));
+            text = GetContrastingTextColour(bg);
+        } else {
+            wxColour bg = wxMetroTheme::Colour(wxMT_FOREGROUND);
+            text = GetContrastingTextColour(bg);
         }
 
         dc.SetTextForeground(text);
@@ -1342,7 +1352,7 @@ void wxMetroListBox::OnPaint(wxPaintEvent &) {
                            &windowRect.x, &windowRect.y);
     dc.DrawRectangle(windowRect);
     dc.SetFont(GetFont());
-    dc.SetTextForeground(*wxBLACK);
+    dc.SetTextForeground(GetContrastingTextColour(bg));
     int height = dc.GetCharHeight();
     for (size_t i = 0; i < m_items.size(); i++) {
         wxColour bcol = (m_selectedIdx == (int) i) ? wxColour(50, 50, 50) :
@@ -1350,7 +1360,7 @@ void wxMetroListBox::OnPaint(wxPaintEvent &) {
         dc.SetPen(wxPen(bcol));
         dc.SetBrush(wxBrush(bcol));
         dc.DrawRectangle(m_items[i].geom);
-        dc.SetTextForeground((m_selectedIdx == (int) i) ? *wxWHITE : *wxBLACK);
+        dc.SetTextForeground(GetContrastingTextColour(bcol));
         dc.DrawText(m_items[i].name, m_space / 2, m_items[i].geom.y + m_items[i].geom.height / 2 - height / 2);
     }
 }

@@ -36,6 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <wx/wx.h>
 #include <wx/busyinfo.h>
+#include <wx/settings.h>
 #include "wx/srchctrl.h"
 #include <wx/tokenzr.h>
 #include <wx/config.h>
@@ -75,11 +76,17 @@ END_EVENT_TABLE()
 wxDVPnCdfCtrl::wxDVPnCdfCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos,
                              const wxSize &size, long style, const wxString &name, const bool &bshowsearch, const bool &bshowselector, const bool& bshowpvalue, const bool& bshowhidezeros)
         : wxPanel(parent, id, pos, size, style, name) {
+    wxColour bgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour fgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+    SetBackgroundColour(bgColour);
+    SetForegroundColour(fgColour);
+
     m_bshowpvalue = bshowpvalue;
     m_bshowhidezeros = bshowhidezeros;
     m_srchCtrl = NULL;
     m_plotSurface = new wxPLPlotCtrl(this, wxID_ANY);
     m_plotSurface->SetBackgroundColour(*wxWHITE);
+    m_plotSurface->SetForegroundColour(*wxBLACK);
     m_pdfPlot = new wxPLHistogramPlot();
     m_cdfPlot = new wxPLLinePlot();
     m_cdfPlot->SetColour(*wxBLACK);
@@ -94,12 +101,16 @@ wxDVPnCdfCtrl::wxDVPnCdfCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos
     if (m_bshowpvalue) m_pValueTextBox = new wxTextCtrl(this, wxID_PVALUE_TB, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
     
     m_pValueResultLabel = new wxStaticText(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
+    m_pValueResultLabel->SetForegroundColour(fgColour);
     m_pValueResultTextBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxTE_READONLY);
-    m_pValueResultTextBox->SetForegroundColour(UIColorCalculatedFore);
-    m_pValueResultTextBox->SetBackgroundColour(UIColorCalculatedBack);
+    m_pValueResultTextBox->SetForegroundColour(fgColour);
+    m_pValueResultTextBox->SetBackgroundColour(bgColour);
     m_pValueResultUnits = new wxStaticText(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
+    m_pValueResultUnits->SetForegroundColour(fgColour);
 
     m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition, wxSize(150, -1), 0);
+    m_srchCtrl->SetBackgroundColour(bgColour);
+    m_srchCtrl->SetForegroundColour(fgColour);
     m_selector = new wxDVSelectionListCtrl(this, ID_DATA_SELECTOR, 1, wxDefaultPosition, wxDefaultSize,
                                            wxDVSEL_RADIO_FIRST_COL | wxDVSEL_NO_COLOURS);
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
@@ -111,7 +122,11 @@ wxDVPnCdfCtrl::wxDVPnCdfCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos
     if (!bshowselector)
         m_selector->Hide();
 
-    if (m_bshowhidezeros) m_hideZeros = new wxCheckBox(this, wxID_ANY, "Exclude Zero Values", wxDefaultPosition, wxDefaultSize,  wxALIGN_RIGHT);
+    if (m_bshowhidezeros) {
+        m_hideZeros = new wxCheckBox(this, wxID_ANY, "Exclude Zero Values", wxDefaultPosition, wxDefaultSize,  wxALIGN_RIGHT);
+        m_hideZeros->SetBackgroundColour(bgColour);
+        m_hideZeros->SetForegroundColour(fgColour);
+    }
     /*
     m_PlotTypeDisplayed = new wxChoice(this, wxID_PLOT_TYPE);
     m_PlotTypeDisplayed->Append(wxT("PDF and CDF"));

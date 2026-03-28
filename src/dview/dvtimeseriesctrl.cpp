@@ -784,6 +784,7 @@ wxDVTimeSeriesCtrl::wxDVTimeSeriesCtrl(wxWindow *parent, wxWindowID id, wxDVTime
           m_xAxixWorldMin(0),
           m_xAxixWorldMax(0) {
     SetBackgroundColour(*wxWHITE);
+    SetForegroundColour(*wxBLACK);
     m_srchCtrl = NULL;
     m_stackingOnYLeft = false;
     m_topAutoScale = false;
@@ -797,6 +798,7 @@ wxDVTimeSeriesCtrl::wxDVTimeSeriesCtrl(wxWindow *parent, wxWindowID id, wxDVTime
 
     m_plotSurface = new wxPLPlotCtrl(this, ID_PLOT_SURFACE);
     m_plotSurface->SetBackgroundColour(*wxWHITE);
+    m_plotSurface->SetForegroundColour(*wxBLACK);
     m_plotSurface->SetHighlightMode(wxPLPlotCtrl::HIGHLIGHT_SPAN);
     m_plotSurface->ShowTitle(false);
     m_plotSurface->ShowLegend(false);

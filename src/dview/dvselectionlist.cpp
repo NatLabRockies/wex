@@ -457,6 +457,7 @@ void wxDVSelectionListCtrl::OnPaint(wxPaintEvent &) {
     double luminance = (0.299 * bg.Red() + 0.587 * bg.Green() + 0.114 * bg.Blue()) / 255.0;
     wxColour fg = (luminance < 0.5) ? *wxWHITE : *wxBLACK;
     wxColour dis_fg = (luminance < 0.5) ? wxColour(150, 150, 150) : *wxLIGHT_GREY;
+    fprintf(stderr, "DView: bg=(%d, %d, %d) luminance=%f fg=(%d, %d, %d)\n", bg.Red(), bg.Green(), bg.Blue(), luminance, fg.Red(), fg.Green(), fg.Blue()); fflush(stderr);
     
     dc.SetBrush(wxBrush(bg));
     dc.SetPen(wxPen(bg, 1));

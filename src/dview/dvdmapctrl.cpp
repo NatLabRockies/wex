@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <wx/choice.h>
 #include <wx/config.h>
 #include <wx/scrolbar.h>
+#include <wx/settings.h>
 #include "wx/srchctrl.h"
 #include <wx/textctrl.h>
 #include <wx/tokenzr.h>
@@ -210,12 +211,18 @@ wxDVDMapCtrl::wxDVDMapCtrl(wxWindow *parent,
           m_timer(nullptr),
           m_xAxixWorldMin(0),
           m_xAxixWorldMax(0) {
+    wxColour bgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour fgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+    SetBackgroundColour(bgColour);
+    SetForegroundColour(fgColour);
+
     m_currentlyShownDataSet = 0;
     m_srchCtrl = NULL;
     m_colourMap = new wxPLJetColourMap(0, 24);
 
     m_plotSurface = new wxPLPlotCtrl(this, ID_DMAP_SURFACE);
     m_plotSurface->SetBackgroundColour(*wxWHITE);
+    m_plotSurface->SetForegroundColour(*wxBLACK);
     m_plotSurface->SetHighlightMode(wxPLPlotCtrl::HIGHLIGHT_SPAN);
     m_plotSurface->ShowGrid(false, false);
     m_plotSurface->ShowTitle(false);
@@ -235,15 +242,23 @@ wxDVDMapCtrl::wxDVDMapCtrl(wxWindow *parent,
 
     m_minTextBox = new wxTextCtrl(this, ID_MIN_Z_INPUT, wxEmptyString, wxDefaultPosition, wxDefaultSize,
                                   wxTE_PROCESS_ENTER);
+    m_minTextBox->SetBackgroundColour(bgColour);
+    m_minTextBox->SetForegroundColour(fgColour);
     m_maxTextBox = new wxTextCtrl(this, ID_MAX_Z_INPUT, wxEmptyString, wxDefaultPosition, wxDefaultSize,
                                   wxTE_PROCESS_ENTER);
+    m_maxTextBox->SetBackgroundColour(bgColour);
+    m_maxTextBox->SetForegroundColour(fgColour);
 
     wxString choices[5] = {"Jet", "Parula", "Grayscale", "Coarse Rainbow", "Fine Rainbow"};
     m_colourMapSelector = new wxChoice(this, ID_COLOURMAP_SELECTOR_CHOICE, wxDefaultPosition, wxDefaultSize, 5,
                                        choices);
     m_colourMapSelector->SetSelection(0);
+    m_colourMapSelector->SetBackgroundColour(bgColour);
+    m_colourMapSelector->SetForegroundColour(fgColour);
 
     m_reverseColours = new wxCheckBox(this, ID_REVERSE_COLOURS, "Reverse colors");
+    m_reverseColours->SetBackgroundColour(bgColour);
+    m_reverseColours->SetForegroundColour(fgColour);
 
     m_yGraphScroller = new wxScrollBar(this, ID_GRAPH_Y_SCROLLBAR, wxDefaultPosition, wxDefaultSize, wxSB_VERTICAL);
     m_xGraphScroller = new wxScrollBar(this, ID_GRAPH_SCROLLBAR, wxDefaultPosition, wxDefaultSize, wxSB_HORIZONTAL);
@@ -264,6 +279,8 @@ wxDVDMapCtrl::wxDVDMapCtrl(wxWindow *parent,
     scrollSizer->Add(zoom_fit, 0, wxALL | wxEXPAND, 1);
 
     m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition, wxSize(150, -1), 0);
+    m_srchCtrl->SetBackgroundColour(bgColour);
+    m_srchCtrl->SetForegroundColour(fgColour);
     m_selector = new wxDVSelectionListCtrl(this, ID_DATA_SELECTOR, 1, wxDefaultPosition, wxDefaultSize,
                                            wxDVSEL_RADIO_FIRST_COL | wxDVSEL_NO_COLOURS);
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
@@ -280,13 +297,19 @@ wxDVDMapCtrl::wxDVDMapCtrl(wxWindow *parent,
     optionsSizer->Add(m_colourMapSelector, 0, wxALL | wxEXPAND, 3);
     optionsSizer->Add(m_reverseColours, 0, wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, 5);
     optionsSizer->AddStretchSpacer();
-    optionsSizer->Add(new wxStaticText(this, wxID_ANY, "Min:"), 0, wxALIGN_CENTER | wxALIGN_CENTER_VERTICAL, 4);
+    wxStaticText* minLabel = new wxStaticText(this, wxID_ANY, "Min:");
+    minLabel->SetForegroundColour(fgColour);
+    optionsSizer->Add(minLabel, 0, wxALIGN_CENTER | wxALIGN_CENTER_VERTICAL, 4);
     optionsSizer->Add(m_minTextBox, 0, wxALL | wxALIGN_CENTER_VERTICAL, 3);
     optionsSizer->AddSpacer(6);
-    optionsSizer->Add(new wxStaticText(this, wxID_ANY, "Max:"), 0, wxALIGN_CENTER | wxALIGN_CENTER_VERTICAL, 4);
+    wxStaticText* maxLabel = new wxStaticText(this, wxID_ANY, "Max:");
+    maxLabel->SetForegroundColour(fgColour);
+    optionsSizer->Add(maxLabel, 0, wxALIGN_CENTER | wxALIGN_CENTER_VERTICAL, 4);
     optionsSizer->Add(m_maxTextBox, 0, wxALL | wxALIGN_CENTER_VERTICAL, 3);
-    optionsSizer->Add(new wxButton(this, ID_RESET_MIN_MAX, "Reset", wxDefaultPosition, wxDefaultSize, wxBU_EXACTFIT), 0,
-                      wxALIGN_CENTER | wxRIGHT, 5);
+    wxButton* resetBtn = new wxButton(this, ID_RESET_MIN_MAX, "Reset", wxDefaultPosition, wxDefaultSize, wxBU_EXACTFIT);
+    resetBtn->SetBackgroundColour(bgColour);
+    resetBtn->SetForegroundColour(fgColour);
+    optionsSizer->Add(resetBtn, 0, wxALIGN_CENTER | wxRIGHT, 5);
 
     wxBoxSizer *leftSizer = new wxBoxSizer(wxVERTICAL);
     leftSizer->Add(optionsSizer, 0, wxEXPAND, 2);
