@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -424,7 +424,7 @@ void wxOnlineRegistration::OnRegister(wxCommandEvent &) {
     rapidjson::Document reader;
 
     if (m_register->GetLabel() == "Resend key") {
-        //	https://developer.nrel.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
+        //	https://developer.NLR.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
         wxString url, post;
         gs_regData->GetApi(wxOnlineRegistrationData::RESEND_KEY, &url, &post);
         curl.SetPostData(post);

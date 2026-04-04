@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -1409,7 +1409,7 @@ bool wxDVFileReader::IsDate(wxString stringToCheck) {
 // Conversion factors from Energy+.idd
 void wxDVFileReader::InitUnitConversions() {
     // NOTE: tuple format (SI unit string, IP unit string, SI to IP conversion factor)
-    // See SetupUnitConversions method in https://github.com/NREL/EnergyPlus/blob/develop/src/EnergyPlus/OutputReportTabular.cc
+    // See SetupUnitConversions method in https://github.com/NatLabRockies/EnergyPlus/blob/develop/src/EnergyPlus/OutputReportTabular.cc
     m_unitConversions.emplace_back("$/(m3/s)", "$/(ft3/min)", 0.000472000059660808);
     m_unitConversions.emplace_back("$/(W/K)", "$/(Btu/h-F)", 0.52667614683731);
     m_unitConversions.emplace_back("$/kW", "$/(kBtuh/h)", 0.293083235638921);

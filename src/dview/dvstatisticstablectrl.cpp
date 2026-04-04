@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -452,7 +452,7 @@ wxDVStatisticsTableCtrl::~wxDVStatisticsTableCtrl(void) {
 }
 
 void wxDVStatisticsTableCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NREL");
+    wxConfig cfg("DView", "NLR");
 
     wxString s;
     bool success;
@@ -470,7 +470,7 @@ void wxDVStatisticsTableCtrl::ReadState(std::string filename) {
 }
 
 void wxDVStatisticsTableCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NREL");
+    wxConfig cfg("DView", "NLR");
 
     bool success;
     bool debugging = false;
