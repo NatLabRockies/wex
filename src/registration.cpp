@@ -424,7 +424,7 @@ void wxOnlineRegistration::OnRegister(wxCommandEvent &) {
     rapidjson::Document reader;
 
     if (m_register->GetLabel() == "Resend key") {
-        //	https://developer.NLR.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
+        //	https://developer.nlr.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
         wxString url, post;
         gs_regData->GetApi(wxOnlineRegistrationData::RESEND_KEY, &url, &post);
         curl.SetPostData(post);
