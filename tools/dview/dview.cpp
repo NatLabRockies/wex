@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -116,7 +116,7 @@ public:
         mPlotCtrl = new wxDVPlotCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
         mPlotCtrl->DisplayTabs();
 
-        wxConfig cfg("DView", "NREL");
+        wxConfig cfg("DView", "NLR");
         long ct = 0;
         if (cfg.Read("RecentCount", &ct))
             mRecentCount = (int) ct;
@@ -262,7 +262,7 @@ public:
 
         long ct = (long) mRecentCount;
 
-        wxConfig cfg("DView", "NREL");
+        wxConfig cfg("DView", "NLR");
         cfg.Write("RecentCount", ct);
         for (int i = 0; i < mRecentCount; i++) {
             wxString key;
