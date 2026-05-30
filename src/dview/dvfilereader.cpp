@@ -462,14 +462,15 @@ static bool ReadWeatherFileLine(FILE *fp, int type,
 }
 
 bool
-wxDVFileReader::FastRead(wxDVPlotCtrl *plotWin, const wxString &filename, int prealloc_data, int prealloc_lnchars) {
+wxDVFileReader::FastRead(wxDVPlotCtrl *plotWin, const wxString &filename, int prealloc_data, int prealloc_lnchars,
+                         int ipUnits) {
     wxString fExtension = filename.Right(3);
     if (fExtension.CmpNoCase("tm2") == 0 ||
         fExtension.CmpNoCase("epw") == 0 ||
         fExtension.CmpNoCase("smw") == 0) {
         return ReadWeatherFile(plotWin, filename);
     } else if (fExtension.CmpNoCase("sql") == 0) {
-        return ReadSQLFile(plotWin, filename);
+        return ReadSQLFile(plotWin, filename, ipUnits);
     }
 
     wxStopWatch sw;
@@ -933,7 +934,7 @@ bool wxDVFileReader::Read8760WFLines(std::vector<wxDVArrayDataSet *> &dataSets, 
     return true;
 }
 
-bool wxDVFileReader::ReadSQLFile(wxDVPlotCtrl *plotWin, const wxString &filename) {
+bool wxDVFileReader::ReadSQLFile(wxDVPlotCtrl *plotWin, const wxString &filename, int ipUnits) {
     wxFileName fileName(filename);
 
     if (!fileName.IsFileReadable()) {
@@ -945,8 +946,13 @@ bool wxDVFileReader::ReadSQLFile(wxDVPlotCtrl *plotWin, const wxString &filename
     int success = sqlite3_open_v2(filename.c_str(), &db, SQLITE_OPEN_READONLY | SQLITE_OPEN_EXCLUSIVE, nullptr);
 
     if (success == SQLITE_OK) {
-        int convertUnits = wxMessageBox(wxT("Would you like to display your Energy+ data in IP units?."),
+        int convertUnits;
+        if (ipUnits < 0) {
+            convertUnits = wxMessageBox(wxT("Would you like to display your Energy+ data in IP units?."),
                                         wxT("Units Conversion"), wxYES_NO);
+        } else {
+            convertUnits = ipUnits ? wxYES : wxNO;
+        }
 
         wxStopWatch sw;
         sw.Start();
