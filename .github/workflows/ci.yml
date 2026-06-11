@@ -150,7 +150,7 @@ jobs:
           wex/build_linux/wex*.a
 
   build-on-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     env: 
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
     steps:
