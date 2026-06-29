@@ -306,7 +306,7 @@ wxDVDMapCtrl::~wxDVDMapCtrl() {
 }
 
 void wxDVDMapCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -384,7 +384,7 @@ void wxDVDMapCtrl::OnTimer(wxTimerEvent &) {
 }
 
 void wxDVDMapCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;

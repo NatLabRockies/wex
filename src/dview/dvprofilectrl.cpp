@@ -279,7 +279,7 @@ wxDVProfileCtrl::~wxDVProfileCtrl() {
 }
 
 void wxDVProfileCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -337,7 +337,7 @@ void wxDVProfileCtrl::OnTimer(wxTimerEvent &) {
 }
 
 void wxDVProfileCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;

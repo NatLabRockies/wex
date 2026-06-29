@@ -452,7 +452,7 @@ wxDVStatisticsTableCtrl::~wxDVStatisticsTableCtrl(void) {
 }
 
 void wxDVStatisticsTableCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -470,7 +470,7 @@ void wxDVStatisticsTableCtrl::ReadState(std::string filename) {
 }
 
 void wxDVStatisticsTableCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;

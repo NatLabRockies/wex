@@ -200,7 +200,7 @@ wxDVPnCdfCtrl::~wxDVPnCdfCtrl() {
 }
 
 void wxDVPnCdfCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -272,7 +272,7 @@ void wxDVPnCdfCtrl::ReadState(std::string filename) {
 }
 
 void wxDVPnCdfCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;
