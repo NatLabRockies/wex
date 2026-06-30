@@ -116,7 +116,7 @@ public:
         mPlotCtrl = new wxDVPlotCtrl(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
         mPlotCtrl->DisplayTabs();
 
-        wxConfig cfg("DView", "NLR");
+        wxConfig cfg("DView", "NREL");
         long ct = 0;
         if (cfg.Read("RecentCount", &ct))
             mRecentCount = (int) ct;
@@ -262,7 +262,7 @@ public:
 
         long ct = (long) mRecentCount;
 
-        wxConfig cfg("DView", "NLR");
+        wxConfig cfg("DView", "NREL");
         cfg.Write("RecentCount", ct);
         for (int i = 0; i < mRecentCount; i++) {
             wxString key;

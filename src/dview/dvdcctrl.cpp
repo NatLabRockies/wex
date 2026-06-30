@@ -85,7 +85,7 @@ wxDVDCCtrl::~wxDVDCCtrl() {
 }
 
 void wxDVDCCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -111,7 +111,7 @@ void wxDVDCCtrl::ReadState(std::string filename) {
 }
 
 void wxDVDCCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;

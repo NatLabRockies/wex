@@ -131,7 +131,7 @@ wxDVScatterPlotCtrl::~wxDVScatterPlotCtrl() {
 }
 
 void wxDVScatterPlotCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     wxString s;
     bool success;
@@ -182,7 +182,7 @@ void wxDVScatterPlotCtrl::ReadState(std::string filename) {
 }
 
 void wxDVScatterPlotCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;

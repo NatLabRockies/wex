@@ -858,7 +858,7 @@ wxDVTimeSeriesCtrl::~wxDVTimeSeriesCtrl(void) {
 }
 
 void wxDVTimeSeriesCtrl::ReadState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     // Note: on Mac, these settings are stored in a plist file,
     // "DView Preferences" in folder ~/Library/Preferences.
@@ -984,7 +984,7 @@ void wxDVTimeSeriesCtrl::OnTimer(wxTimerEvent &) {
 }
 
 void wxDVTimeSeriesCtrl::WriteState(std::string filename) {
-    wxConfig cfg("DView", "NLR");
+    wxConfig cfg("DView", "NREL");
 
     bool success;
     bool debugging = false;
