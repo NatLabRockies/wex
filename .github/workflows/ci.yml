@@ -5,7 +5,7 @@ on:
   pull_request:
 
 env:
-  WX_VERSION: '3.2.4'
+  WX_VERSION: '3.2.8.1'
   DEFAULT_BRANCH: develop
 
 
@@ -150,7 +150,7 @@ jobs:
           wex/build_linux/wex*.a
 
   build-on-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     env: 
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
     steps:

@@ -19,6 +19,7 @@ set(DVIEW_SRC
 # CMake Targets
 #
 #####################################################################################################################
+set(CMAKE_CXX_STANDARD 20)
 
 # wexsandbox
 add_executable(wexsandbox ${WEX_SRC} ${wexsandbox_SRC})
@@ -90,6 +91,13 @@ else ()
         target_link_libraries(wexsandbox optimized ${LK_LIB})
     endif()
 endif ()
+
+if (wxWidgets_FOUND)
+    include(${wxWidgets_USE_FILE})
+endif ()
+add_compile_options(${wxWidgets_CXX_FLAGS})
+add_definitions(-DLK_USE_WXWIDGETS )
+
 if (UNIX AND NOT APPLE)
     target_link_libraries(wexsandbox wex ${wxWidgets_LIBRARIES} ${FONTCONFIG_LIBRARY})
 else ()

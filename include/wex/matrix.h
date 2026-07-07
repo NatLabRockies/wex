@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Sustainable Energy, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -175,8 +175,8 @@ public:
         wxMatrix<T> old(*this);
         Resize(nr, nc);
         Fill(val);
-        for (size_t r = 0; r < nr && r < old.nrows(); r++)
-            for (size_t c = 0; c < nc && c < old.ncols(); c++)
+        for (size_t r = 0; r < nr && r < old.Rows(); r++)
+            for (size_t c = 0; c < nc && c < old.Cols(); c++)
                 At(r, c) = old(r, c);
     }
 

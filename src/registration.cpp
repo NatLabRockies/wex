@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Sustainable Energy, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -289,7 +289,7 @@ END_EVENT_TABLE()
 
 wxOnlineRegistration::wxOnlineRegistration(wxWindow *parent)
         : wxDialog(parent, wxID_ANY,
-                   gs_regData ? gs_regData->GetAppName() + " Registration" : "Software Registration",
+                   gs_regData ? gs_regData->GetAppName() + wxString(" Registration") : wxString("Software Registration"),
                    wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE) {
     wxFont font(wxMetroTheme::Font(wxMT_LIGHT, 12));
     SetBackgroundColour(wxMetroTheme::Colour(wxMT_FOREGROUND));
@@ -424,7 +424,7 @@ void wxOnlineRegistration::OnRegister(wxCommandEvent &) {
     rapidjson::Document reader;
 
     if (m_register->GetLabel() == "Resend key") {
-        //	https://developer.nrel.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
+        //	https://developer.nlr.gov/api/sam/v1/tracker/resend_key?api_key=SAMAPIKEY&email=someusersemail@somedomain.com
         wxString url, post;
         gs_regData->GetApi(wxOnlineRegistrationData::RESEND_KEY, &url, &post);
         curl.SetPostData(post);

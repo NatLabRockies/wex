@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Sustainable Energy, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -863,7 +863,7 @@ void wxDVTimeSeriesCtrl::ReadState(std::string filename) {
     // Note: on Mac, these settings are stored in a plist file,
     // "DView Preferences" in folder ~/Library/Preferences.
     // On Windows, these settings are stored in the registry
-    // in key HKEY_CURRENT_USER/Software/NREL/DView
+    // in key HKEY_CURRENT_USER/Software/NLR/DView
 
     wxString s;
     bool success;

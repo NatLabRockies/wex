@@ -1,7 +1,7 @@
 /*
 BSD 3-Clause License
 
-Copyright (c) Alliance for Sustainable Energy, LLC. See also https://github.com/NREL/wex/blob/develop/LICENSE
+Copyright (c) Alliance for Energy Innovation, LLC. See also https://github.com/NatLabRockies/wex/blob/develop/LICENSE
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -202,7 +202,7 @@ wxDVProfileCtrl::wxDVProfileCtrl(wxWindow *parent, wxWindowID id, const wxPoint 
         : wxPanel(parent, id, pos, size, style, name),
           m_timer(nullptr),
           m_counter(0) {
-    //wxFileConfig configFile("DView", "NREL");
+    //wxFileConfig configFile("DView", "NLR");
     m_srchCtrl = NULL;
     wxScrolledWindow *monthSelector = new wxScrolledWindow(this, wxID_ANY,
                                                            wxDefaultPosition, wxDefaultSize, wxHSCROLL);
