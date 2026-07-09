@@ -61,14 +61,17 @@ class wxDVFileReader {
 public:
     static void ReadDataFromCSV(wxDVPlotCtrl *plotWin, const wxString &filename, wxChar separator = ',');
 
+    // ipUnits: -1 = ask user (dialog), 0 = SI, 1 = IP
     static bool
-    FastRead(wxDVPlotCtrl *plotWin, const wxString &filename, int prealloc_data = 8760, int prealloc_lnchars = 1024);
+    FastRead(wxDVPlotCtrl *plotWin, const wxString &filename, int prealloc_data = 8760, int prealloc_lnchars = 1024,
+             int ipUnits = -1);
 
     static bool Read8760WFLines(std::vector<wxDVArrayDataSet *> &dataSets, FILE *infile, int wfType);
 
     static bool ReadWeatherFile(wxDVPlotCtrl *plotWin, const wxString &filename);
 
-    static bool ReadSQLFile(wxDVPlotCtrl *plotWin, const wxString &filename);
+    // ipUnits: -1 = ask user (dialog), 0 = SI, 1 = IP
+    static bool ReadSQLFile(wxDVPlotCtrl *plotWin, const wxString &filename, int ipUnits = -1);
 
     static bool IsNumeric(wxString stringToCheck);
 

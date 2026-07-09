@@ -280,7 +280,7 @@ public:
         Destroy();
     }
 
-    bool Load(const wxArrayString &filenames) {
+    bool Load(const wxArrayString &filenames, int ipUnits = -1) {
         bool FileExists = false;
 
         wxBeginBusyCursor();
@@ -294,7 +294,7 @@ public:
             }
 
             if (!FileExists) {
-                if (!wxDVFileReader::FastRead(mPlotCtrl, filenames[i])) {
+                if (!wxDVFileReader::FastRead(mPlotCtrl, filenames[i], 8760, 1024, ipUnits)) {
                     wxMessageBox(
                             wxT("The selected file is not of the correct format, is corrupt, no longer exists, or you do not have permission to open it."),
                             wxT("Error opening file."), wxICON_ERROR);
@@ -378,6 +378,7 @@ private:
 
     bool m_arg_showLog;
     int m_arg_tab, m_arg_data;
+    int m_arg_ipUnits;  // -1 = ask (dialog), 0 = SI, 1 = IP
     double m_startHour, m_endHour;
     wxArrayString m_variables;
     wxArrayString m_arg_filenames;
@@ -399,7 +400,7 @@ public:
         DViewFrame *frame = new DViewFrame;
 
         if (m_arg_filenames.Count() > 0)
-            frame->Load(m_arg_filenames);
+            frame->Load(m_arg_filenames, m_arg_ipUnits);
 
         if (m_arg_tab != -1)
             frame->GetPlot()->SelectTabIndex(m_arg_tab);
@@ -448,6 +449,8 @@ public:
                          wxCMD_LINE_VAL_STRING);
         parser.AddParam(wxT("files to load"), wxCMD_LINE_VAL_STRING,
                         wxCMD_LINE_PARAM_OPTIONAL | wxCMD_LINE_PARAM_MULTIPLE);
+        parser.AddSwitch(wxT(""), wxT("ip"), wxT("display Energy+ SQL data in IP units (skips dialog)"));
+        parser.AddSwitch(wxT(""), wxT("si"), wxT("display Energy+ SQL data in SI units (skips dialog)"));
     }
 
     bool OnCmdLineParsed(wxCmdLineParser &parser) {
@@ -463,6 +466,12 @@ public:
             m_arg_showLog = true;
         else
             m_arg_showLog = false;
+
+        m_arg_ipUnits = -1;
+        if (parser.Found(wxT("ip")))
+            m_arg_ipUnits = 1;
+        else if (parser.Found(wxT("si")))
+            m_arg_ipUnits = 0;
 
         m_arg_tab = -1;
         if (parser.Found(wxT("t"), &tabNumber) && tabNumber >= 0)
