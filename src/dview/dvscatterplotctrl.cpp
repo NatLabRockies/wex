@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <wx/wx.h>
 #include <wx/config.h>
+#include <wx/settings.h>
 #include "wx/srchctrl.h"
 #include <wx/tokenzr.h>
 
@@ -93,14 +94,22 @@ END_EVENT_TABLE()
 wxDVScatterPlotCtrl::wxDVScatterPlotCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos,
                                          const wxSize &size, long style, const wxString &name)
         : wxPanel(parent, id, pos, size, style, name) {
+    wxColour bgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour fgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+    SetBackgroundColour(bgColour);
+    SetForegroundColour(fgColour);
+
     m_srchCtrl = NULL;
 
     m_plotSurface = new wxPLPlotCtrl(this, wxID_ANY);
     m_plotSurface->ShowTitle(false);
     m_plotSurface->SetBackgroundColour(*wxWHITE);
+    m_plotSurface->SetForegroundColour(*wxBLACK);
     m_plotSurface->ShowLegend(false);
 
     m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition, wxSize(150, -1), 0);
+    m_srchCtrl->SetBackgroundColour(bgColour);
+    m_srchCtrl->SetForegroundColour(fgColour);
     m_dataSelectionList = new wxDVSelectionListCtrl(this, wxID_SCATTER_DATA_SELECTOR, 2, wxDefaultPosition,
                                                     wxDefaultSize, wxDVSEL_RADIO_FIRST_COL);
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
@@ -113,6 +122,8 @@ wxDVScatterPlotCtrl::wxDVScatterPlotCtrl(wxWindow *parent, wxWindowID id, const 
     wxBoxSizer *optionsSizer = new wxBoxSizer(wxHORIZONTAL);
     m_showPerfAgreeLine = new wxCheckBox(this, wxID_PERFECT_AGREE_LINE, "Show Line of Perfect Agreement",
                                          wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT);
+    m_showPerfAgreeLine->SetBackgroundColour(bgColour);
+    m_showPerfAgreeLine->SetForegroundColour(fgColour);
     optionsSizer->Add(m_showPerfAgreeLine, 0, wxALL | wxALIGN_CENTER_VERTICAL, 2);
 
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);

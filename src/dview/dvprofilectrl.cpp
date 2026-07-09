@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <wx/config.h>
 #include <wx/dcbuffer.h>
 #include <wx/fileconf.h>
+#include <wx/settings.h>
 #include <wx/sizer.h>
 #include "wx/srchctrl.h"
 #include <wx/tokenzr.h>
@@ -133,7 +134,6 @@ public:
     VerticalLabelCtrl(wxWindow *parent, wxWindowID id)
             : wxWindow(parent, id) {
         SetBackgroundStyle(wxBG_STYLE_CUSTOM);
-        SetBackgroundColour(*wxWHITE);
     }
 
     virtual wxSize DoGetBestSize() const {
@@ -206,6 +206,10 @@ wxDVProfileCtrl::wxDVProfileCtrl(wxWindow *parent, wxWindowID id, const wxPoint 
     m_srchCtrl = NULL;
     wxScrolledWindow *monthSelector = new wxScrolledWindow(this, wxID_ANY,
                                                            wxDefaultPosition, wxDefaultSize, wxHSCROLL);
+    wxColour bgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour fgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+    monthSelector->SetBackgroundColour(bgColour);
+    monthSelector->SetForegroundColour(fgColour);
     wxBoxSizer *monthSizer = new wxBoxSizer(wxHORIZONTAL);
     monthSelector->SetSizer(monthSizer);
     monthSelector->SetScrollRate(10, 0);
@@ -213,14 +217,20 @@ wxDVProfileCtrl::wxDVProfileCtrl(wxWindow *parent, wxWindowID id, const wxPoint 
         m_monthCheckBoxes[i] = new wxCheckBox(monthSelector, ID_JAN_CHECK + i,
                                               wxDateTime::GetMonthName(wxDateTime::Month(i), wxDateTime::Name_Abbr));
         m_monthCheckBoxes[i]->SetValue(true);
+        m_monthCheckBoxes[i]->SetBackgroundColour(bgColour);
+        m_monthCheckBoxes[i]->SetForegroundColour(fgColour);
         monthSizer->Add(m_monthCheckBoxes[i], 0, wxALL, 5);
     }
     m_numberOfPlotSurfacesShown = 12;
     //Add an extra at the end for the annual profile.
     m_monthCheckBoxes[12] = new wxCheckBox(monthSelector, ID_ANNUAL_CHECK, wxT("Annual"));
+    m_monthCheckBoxes[12]->SetBackgroundColour(bgColour);
+    m_monthCheckBoxes[12]->SetForegroundColour(fgColour);
     monthSizer->Add(m_monthCheckBoxes[12], 0, wxALL, 5);
-    monthSizer->Add(new wxCheckBox(monthSelector, ID_SEL_ALL_CHECK,
-                                   wxT("Select All")), 0, wxALL, 5);
+    wxCheckBox* selAllCheck = new wxCheckBox(monthSelector, ID_SEL_ALL_CHECK, wxT("Select All"));
+    selAllCheck->SetBackgroundColour(bgColour);
+    selAllCheck->SetForegroundColour(fgColour);
+    monthSizer->Add(selAllCheck, 0, wxALL, 5);
     for (int i = 0; i < 12; i++) {
         m_plotSurfaces[i] = new wxPLPlotCtrl(this, wxID_ANY);
         m_plotSurfaces[i]->SetIncludeLegendOnExport(true);
@@ -231,6 +241,7 @@ wxDVProfileCtrl::wxDVProfileCtrl(wxWindow *parent, wxWindowID id, const wxPoint 
     }
     //Add annual profile:
     m_plotSurfaces[12] = new wxPLPlotCtrl(this, wxID_ANY);
+    m_plotSurfaces[12]->SetBackgroundColour(*wxWHITE);
     m_plotSurfaces[12]->SetTitle(wxT("Annual Profile"));
     m_plotSurfaces[12]->ShowGrid(true, false);
     m_plotSurfaces[12]->ShowLegend(false);

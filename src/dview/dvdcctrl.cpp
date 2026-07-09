@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <wx/app.h>
 #include <wx/busyinfo.h>
 #include <wx/config.h>
+#include <wx/settings.h>
 #include <wx/tokenzr.h>
 
 #include "wx/srchctrl.h"
@@ -56,16 +57,24 @@ enum {
 wxDVDCCtrl::wxDVDCCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos,
                        const wxSize &size, long style, const wxString &name)
         : wxPanel(parent, id, pos, size, style, name) {
+    wxColour bgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW);
+    wxColour fgColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
+    SetBackgroundColour(bgColour);
+    SetForegroundColour(fgColour);
+
     wxBoxSizer *topSizer = new wxBoxSizer(wxHORIZONTAL);
     SetSizer(topSizer);
     m_srchCtrl = NULL;
     m_plotSurface = new wxPLPlotCtrl(this, wxID_ANY);
     m_plotSurface->SetBackgroundColour(*wxWHITE);
+    m_plotSurface->SetForegroundColour(*wxBLACK);
     m_plotSurface->ShowTitle(false);
     m_plotSurface->ShowLegend(false);
     topSizer->Add(m_plotSurface, 1, wxEXPAND | wxALL, 10);
 
     m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition, wxSize(150, -1), 0);
+    m_srchCtrl->SetBackgroundColour(bgColour);
+    m_srchCtrl->SetForegroundColour(fgColour);
     m_dataSelector = new wxDVSelectionListCtrl(this, wxID_DC_DATA_SELECTOR, 1);
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(m_srchCtrl, 0, wxALL | wxEXPAND, 0);

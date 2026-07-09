@@ -468,6 +468,14 @@ void wxDVSelectionListCtrl::OnPaint(wxPaintEvent &) {
 
     // paint the background.
     wxColour bg = GetBackgroundColour();
+    
+    // Determine text color based on background luminance
+    // Standard relative luminance formula
+    double luminance = (0.299 * bg.Red() + 0.587 * bg.Green() + 0.114 * bg.Blue()) / 255.0;
+    wxColour fg = (luminance < 0.5) ? *wxWHITE : *wxBLACK;
+    wxColour dis_fg = (luminance < 0.5) ? wxColour(150, 150, 150) : *wxLIGHT_GREY;
+    fprintf(stderr, "DView: bg=(%d, %d, %d) luminance=%f fg=(%d, %d, %d)\n", bg.Red(), bg.Green(), bg.Blue(), luminance, fg.Red(), fg.Green(), fg.Blue()); fflush(stderr);
+    
     dc.SetBrush(wxBrush(bg));
     dc.SetPen(wxPen(bg, 1));
     wxRect windowRect(wxPoint(0, 0), GetClientSize());
@@ -524,10 +532,10 @@ void wxDVSelectionListCtrl::OnPaint(wxPaintEvent &) {
             }
 
             for (size_t c = 0; c < (size_t) m_numCols; c++) {
-                wxColour color = items[i]->enable[c] ? *wxBLACK : *wxLIGHT_GREY;
+                wxColour color = items[i]->enable[c] ? fg : dis_fg;
                 items[i]->geom[c] = wxRect(x, y + yoff, m_boxSize, m_boxSize); // save geometry to speed up mouse clicks
 
-                dc.SetBrush(*wxWHITE_BRUSH);
+                dc.SetBrush(wxBrush(bg));
                 dc.SetPen(wxPen(color, 1));
 
                 if (((m_style & wxDVSEL_RADIO_FIRST_COL) && c == 0) || (m_style == wxDVSEL_RADIO_ALL_COL))
@@ -536,8 +544,8 @@ void wxDVSelectionListCtrl::OnPaint(wxPaintEvent &) {
                     dc.DrawRectangle(x, y + yoff, m_boxSize, m_boxSize);
 
                 if (items[i]->value[c]) {
-                    dc.SetBrush(*wxBLACK_BRUSH);
-                    dc.SetPen(*wxBLACK_PEN);
+                    dc.SetBrush(wxBrush(fg));
+                    dc.SetPen(wxPen(fg));
                     if (((m_style & wxDVSEL_RADIO_FIRST_COL) && c == 0) || (m_style == wxDVSEL_RADIO_ALL_COL))
                         dc.DrawCircle(x + radius, y + radius + yoff, radius - 2);
                     else
@@ -548,7 +556,7 @@ void wxDVSelectionListCtrl::OnPaint(wxPaintEvent &) {
             }
 
             dc.SetFont(font_normal);
-            dc.SetTextForeground(*wxBLACK);
+            dc.SetTextForeground(fg);
             dc.DrawText(items[i]->label, x + 2, y + m_itemHeight / 2 - dc.GetCharHeight() / 2 - 1);
 
             y += m_itemHeight;
