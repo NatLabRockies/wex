@@ -7,7 +7,7 @@ WEX also includes two executable programs:
 _lkscript_ is a code editor for the [LK](https://github.com/NatLabRockies/lk) scripting language.
 _dview_ is the [DView](https://github.com/NatLabRockies/wex/wiki/DView) visualization software for time series data.
 
-# Building SAM
+# Building WEX
 
 For build instructions see the [wiki](https://github.com/NatLabRockies/wex/wiki) with specific instructions for:
 
